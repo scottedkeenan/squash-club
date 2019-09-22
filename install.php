@@ -13,7 +13,7 @@
 		id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		name VARCHAR(50) NOT NULL,
 		phone VARCHAR(20) NOT NULL,
-		item VARCHAR(20) NOT NULL,
+		court VARCHAR(20) NOT NULL,
 		start_day INT(11),
 		end_day INT(11),
 		start_time INT(11),
