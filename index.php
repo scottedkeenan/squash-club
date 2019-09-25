@@ -114,70 +114,33 @@ td.calendar-day, td.calendar-day-np {
 				<tr>
 					<td>Reservation time:</td>
 					<td>
-			<input id="from" name="start_day" required="" type="text" /></td>
-					<td>-</td>
-					<td><input id="to" name="end_day" required="" type="text" /></td>
+			<input id="from" name="day" required="" type="text" /></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td> <select name="start_hour">
-			<option selected="selected">00</option>
-			<option>01</option>
-			<option>02</option>
-			<option>03</option>
-			<option>04</option>
-			<option>05</option>
-			<option>06</option>
-			<option>07</option>
-			<option>08</option>
-			<option>09</option>
-			<option>10</option>
-			<option>11</option>
-			<option>12</option>
-			<option>13</option>
-			<option>14</option>
-			<option>15</option>
-			<option>16</option>
-			<option>17</option>
-			<option>18</option>
-			<option>19</option>
-			<option>20</option>
-			<option>21</option>
-			<option>22</option>
-			<option>23</option>
-			</select>:<select name="start_minute">
-			<option selected="selected">00</option>
-			<option>30</option>
-			</select></td>
-					<td>&nbsp;</td>
-					<td><select name="end_hour">
-			<option>00</option>
-			<option>01</option>
-			<option>02</option>
-			<option>03</option>
-			<option>04</option>
-			<option>05</option>
-			<option>06</option>
-			<option>07</option>
-			<option>08</option>
-			<option>09</option>
-			<option>10</option>
-			<option>11</option>
-			<option>12</option>
-			<option>13</option>
-			<option>14</option>
-			<option>15</option>
-			<option>16</option>
-			<option>17</option>
-			<option>18</option>
-			<option>19</option>
-			<option>20</option>
-			<option>21</option>
-			<option>22</option>
-			<option selected="selected">23</option>
-			</select>:<select name="end_minute">
-			<option>00</option>
-			<option selected="selected">30</option>
+					<td> <select name="start_time">
+			<option selected="selected">08:00</option>
+			<option>08:40</option>
+			<option>09:20</option>
+			<option>10:00</option>
+			<option>10:40</option>
+			<option>11:20</option>
+			<option>12:00</option>
+			<option>12:40</option>
+			<option>13:20</option>
+			<option>14:00</option>
+			<option>14:40</option>
+			<option>15:20</option>
+			<option>16:00</option>
+			<option>16:40</option>
+			<option>17:20</option>
+			<option>18:00</option>
+			<option>18:40</option>
+			<option>19:20</option>
+			<option>20:00</option>
+			<option>20:40</option>
+			<option>21:20</option>
+			<option>22:00</option>
 			</select></td>
 				</tr>
 			</table>
@@ -233,7 +196,7 @@ function draw_calendar($month,$year){
 			$calendar.= str_repeat('<p> </p>',2);
 			$current_epoch = mktime(0,0,0,$month,$list_day,$year);
 			
-			$sql = "SELECT * FROM $tablename WHERE $current_epoch BETWEEN start_day AND end_day";
+			$sql = "SELECT * FROM $tablename WHERE $current_epoch BETWEEN day AND day";  
 						
 			$result = mysqli_query($conn, $sql);
     		
@@ -242,16 +205,13 @@ function draw_calendar($month,$year){
     			while($row = mysqli_fetch_assoc($result)) {
 					if($row["canceled"] == 1) $calendar .= "<font color=\"grey\"><s>";
     				$calendar .= "<b>" . $row["court"] . "</b><br>ID: " . $row["id"] . "<br>" . $row["name"] . "<br>" . $row["phone"] . "<br>";
-    				if($current_epoch == $row["start_day"] AND $current_epoch != $row["end_day"]) {
+    				if($current_epoch == $row["day"] AND $current_epoch != $row["day"]) {
     					$calendar .= "Booking starts: " . sprintf("%02d:%02d", $row["start_time"]/60/60, ($row["start_time"]%(60*60)/60)) . "<br><hr><br>";
     				}
-    				if($current_epoch == $row["start_day"] AND $current_epoch == $row["end_day"]) {
-    					$calendar .= "Booking starts: " . sprintf("%02d:%02d", $row["start_time"]/60/60, ($row["start_time"]%(60*60)/60)) . "<br>";
+    				if($current_epoch == $row["day"]) {
+    					$calendar .= "Booking starts: " . $row["start_time"] . "<br>";
     				}
-    				if($current_epoch == $row["end_day"]) {
-    					$calendar .= "Booking ends: " . sprintf("%02d:%02d", $row["end_time"]/60/60, ($row["end_time"]%(60*60)/60)) . "<br><hr><br>";
-    				}
-    				if($current_epoch != $row["start_day"] AND $current_epoch != $row["end_day"]) {
+    				if($current_epoch != $row["day"] AND $current_epoch != $row["end_day"]) {
 	    				$calendar .= "Booking: 24h<br><hr><br>";
 	    			}
 					if($row["canceled"] == 1) $calendar .= "</s></font>";

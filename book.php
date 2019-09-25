@@ -23,35 +23,26 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$start_day = intval(strtotime(htmlspecialchars($_POST["start_day"])));
-$start_time = (60*60*intval(htmlspecialchars($_POST["start_hour"]))) + (60*intval(htmlspecialchars($_POST["start_minute"])));
-$end_day = intval(strtotime(htmlspecialchars($_POST["end_day"])));
-$end_time = (60*60*intval(htmlspecialchars($_POST["end_hour"]))) + (60*intval(htmlspecialchars($_POST["end_minute"])));
+$day = intval(strtotime(htmlspecialchars($_POST["day"])));
+//$start_time = (60*60*intval(htmlspecialchars($_POST["start_time"])));
+$start_time = htmlspecialchars($_POST["start_time"]);
 $name = htmlspecialchars($_POST["name"]);
 $phone = htmlspecialchars($_POST["phone"]);
 $court = htmlspecialchars($_POST["court"]);
 
-$start_epoch = $start_day + $start_time;
-$end_epoch = $end_day + $end_time;
+//$start_epoch = $start_day + $start_time;
+//$end_epoch = $end_day + $end_time;
 
 // prevent double booking
-$sql = "SELECT * FROM $tablename WHERE court='$court' AND (start_day>=$start_day OR end_day>=$start_day) AND canceled=0";
+$sql = "SELECT * FROM $tablename WHERE court='$court' AND day='$day' AND start_time='$start_time' AND canceled=0";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
-    // handle every row
-    while($row = mysqli_fetch_assoc($result)) {
-        // check overlapping at 10 minutes interval
-        for ($i = $start_epoch; $i <= $end_epoch; $i=$i+600) {
-            if ($i>($row["start_day"]+$row["start_time"]) && $i<($row["end_day"]+$row["end_time"])) {
-                echo '<h3><font color="red">Unfortunately ' . $court . ' has already been booked for the time requested.</font></h3>';
-                goto end;
-            }
-        }
-    }				
+    echo '<h3><font color="red">Unfortunately ' . $court . ' has already been booked for ' . $start_time . '</font></h3>';
+    goto end;		
 }
 
-$sql = "INSERT INTO $tablename (name, phone, court, start_day, start_time, end_day, end_time, canceled)
-    VALUES ('$name','$phone', '$court', $start_day, $start_time, $end_day, $end_time, 0)";
+$sql = "INSERT INTO $tablename (name, phone, court, day, start_time, canceled)
+    VALUES ('$name','$phone', '$court', $day, '$start_time', 0)";
 if (mysqli_query($conn, $sql)) {
     echo "<h3>Booking succeed.</h3>";
 } else {
