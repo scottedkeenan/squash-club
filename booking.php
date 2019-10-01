@@ -112,7 +112,7 @@ td.calendar-day, td.calendar-day-np {
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Reservation time:</td>
+					<td>Reservation date:</td>
 					<td>
 			<input id="from" name="day" required="" type="text" /></td>
 				</tr>
