@@ -69,8 +69,8 @@ td.calendar-day, td.calendar-day-np {
 	<!--$.datepicker.setDefaults($.datepicker.regional['fi']);-->
     $( "#from" ).datepicker({
       defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 3,
+      changeMonth: false,
+      numberOfMonths: 2,
       onClose: function( selectedDate ) {
         $( "#to" ).datepicker( "option", "minDate", selectedDate );
       }
@@ -78,8 +78,8 @@ td.calendar-day, td.calendar-day-np {
     $( "#to" ).datepicker({
       defaultDate: "+1w",
 	  regional: "fi",
-      changeMonth: true,
-      numberOfMonths: 3,
+      changeMonth: false,
+      numberOfMonths: 2,
       onClose: function( selectedDate ) {
         $( "#from" ).datepicker( "option", "maxDate", selectedDate );
       }
