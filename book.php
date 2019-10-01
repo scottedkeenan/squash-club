@@ -44,7 +44,7 @@ if (mysqli_num_rows($result) > 0) {
 $sql = "INSERT INTO $tablename (name, phone, court, day, start_time, canceled)
     VALUES ('$name','$phone', '$court', $day, '$start_time', 0)";
 if (mysqli_query($conn, $sql)) {
-    echo "<h3>Booking succeed.</h3>";
+    echo "<h3>Booking successful.</h3>";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

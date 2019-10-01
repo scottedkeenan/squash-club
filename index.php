@@ -203,10 +203,6 @@ $d->modify( 'first day of next month' );
 echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
 echo draw_calendar($d->format('m'),$d->format('Y'));
 
-$d->modify( 'first day of next month' );
-echo '<h3>' . $months[$d->format('n')-1] . ' ' . $d->format('Y') . '</h3>';
-echo draw_calendar($d->format('m'),$d->format('Y'));
-
 ?>
 
 </body>
