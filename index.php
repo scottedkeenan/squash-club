@@ -86,70 +86,12 @@ td.calendar-day, td.calendar-day-np {
     });
   });  </script>
 </head>
-
+    
 <body>
 
+<a href="booking.php"><p>Make a booking</p></a>
+
 <h1>Booking calendar - DEMO</h1>
-<table border="1" cellpadding="5" width="800">
-	<tr>
-		<td valign="top">
-		<form action="book.php" method="post">
-			<h3>Make booking</h3>
-			<p><input name="court" checked="checked" type="radio" value="court-one" />Court One 
-			| <input name="court" type="radio" value="court-two" />Court Two
-			<table style="width: 70%">
-				<tr>
-					<td>Name:</td>
-					<td> <input maxlength="50" name="name" required="" type="text" /></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>Phone:</td>
-					<td>
-			<input maxlength="20" name="phone" required="" type="text" /></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>Reservation time:</td>
-					<td>
-			<input id="from" name="day" required="" type="text" /></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td> <select name="start_time">
-			<option selected="selected">08:00</option>
-			<option>08:40</option>
-			<option>09:20</option>
-			<option>10:00</option>
-			<option>10:40</option>
-			<option>11:20</option>
-			<option>12:00</option>
-			<option>12:40</option>
-			<option>13:20</option>
-			<option>14:00</option>
-			<option>14:40</option>
-			<option>15:20</option>
-			<option>16:00</option>
-			<option>16:40</option>
-			<option>17:20</option>
-			<option>18:00</option>
-			<option>18:40</option>
-			<option>19:20</option>
-			<option>20:00</option>
-			<option>20:40</option>
-			<option>21:20</option>
-			<option>22:00</option>
-			</select></td>
-				</tr>
-			</table>
-			<p>
-			<input name="book" type="submit" value="Book" />
-		</form>
-		</td>
-	</tr>
-</table>
 <?php
 /* draws a calendar */
 function draw_calendar($month,$year){
