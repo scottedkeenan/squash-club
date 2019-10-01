@@ -146,16 +146,14 @@ function draw_calendar($month,$year){
     			// output data of each row
     			while($row = mysqli_fetch_assoc($result)) {
 					if($row["canceled"] == 1) $calendar .= "<font color=\"grey\"><s>";
-    				$calendar .= "<b>" . $row["court"] . "</b><br>ID: " . $row["id"] . "<br>" . $row["name"] . "<br>" . $row["phone"] . "<br>";
-    				if($current_epoch == $row["day"] AND $current_epoch != $row["day"]) {
-    					$calendar .= "Booking starts: " . sprintf("%02d:%02d", $row["start_time"]/60/60, ($row["start_time"]%(60*60)/60)) . "<br><hr><br>";
-    				}
+    				$calendar .= "<b>" . $row["court"] . "</b><br>" . $row["name"] . "<br>";
+//    				if($current_epoch == $row["day"] AND $current_epoch != $row["day"]) {
+//    					$calendar .= "Booking starts: " . sprintf("%02d:%02d", $row["start_time"]/60/60, ($row["start_time"]%(60*60)/60)) . "<br><hr><br>";
+//    					$calendar .= "Booking starts: " . sprintf("%02d:%02d", $row["start_time"]/60/60, ($row["start_time"]%(60*60)/60)) . "<br><hr><br>";
+//    				}
     				if($current_epoch == $row["day"]) {
-    					$calendar .= "Booking starts: " . $row["start_time"] . "<br>";
+    					$calendar .= $row["start_time"] . "<br><br>";
     				}
-    				if($current_epoch != $row["day"] AND $current_epoch != $row["end_day"]) {
-	    				$calendar .= "Booking: 24h<br><hr><br>";
-	    			}
 					if($row["canceled"] == 1) $calendar .= "</s></font>";
     			}
 			} else {

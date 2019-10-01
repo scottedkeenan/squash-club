@@ -104,6 +104,7 @@ td.calendar-day, td.calendar-day-np {
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
+<!--
 				<tr>
 					<td>Phone:</td>
 					<td>
@@ -111,6 +112,7 @@ td.calendar-day, td.calendar-day-np {
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
+-->
 				<tr>
 					<td>Reservation date:</td>
 					<td>
