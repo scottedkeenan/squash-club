@@ -97,7 +97,7 @@ td.calendar-day, td.calendar-day-np {
 			<h3>Make booking</h3>
 			<p><input name="court" checked="checked" type="radio" value="court-one" />Court One 
 			| <input name="court" type="radio" value="court-two" />Court Two
-			<table style="width: 70%">
+            <table style="width: 70%">
 				<tr>
 					<td>Name:</td>
 					<td> <input maxlength="50" name="name" required="" type="text" /></td>
@@ -120,30 +120,21 @@ td.calendar-day, td.calendar-day-np {
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td> <select name="start_time">
-			<option selected="selected">08:00</option>
-			<option>08:40</option>
-			<option>09:20</option>
-			<option>10:00</option>
-			<option>10:40</option>
-			<option>11:20</option>
-			<option>12:00</option>
-			<option>12:40</option>
-			<option>13:20</option>
-			<option>14:00</option>
-			<option>14:40</option>
-			<option>15:20</option>
-			<option>16:00</option>
-			<option>16:40</option>
-			<option>17:20</option>
-			<option>18:00</option>
-			<option>18:40</option>
-			<option>19:20</option>
-			<option>20:00</option>
-			<option>20:40</option>
-			<option>21:20</option>
-			<option>22:00</option>
-			</select></td>
+					<td> 
+                    <select name="start_time">
+                        
+                        <?php
+                        date_default_timezone_set('GMT');
+                        $startTime = new DateTime('9:00');
+                        $endTime = new DateTime('22:00');
+                        $interval = DateInterval::createFromDateString('40 min');
+                        $times    = new DatePeriod($startTime, $interval, $endTime);
+                        
+                        foreach ($times as $time) { ?>
+                            <option><?php echo $time->format('H:i'), '-', $time->add($interval)->format('H:i')?></option>
+                        <?php } ?>
+			         </select>
+                    </td>
 				</tr>
 			</table>
 			<p>
