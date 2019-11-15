@@ -63,25 +63,17 @@ td.calendar-day, td.calendar-day-np {
 <link href="jquery-ui.css" rel="stylesheet">
 <script src="jquery-1.10.2.js"></script>
 <script src="jquery-ui.js"></script>
-<!--<script src="lang/datepicker-fi.js"></script>-->
+<script src="lang/datepicker-en-GB.js"></script>
 <script>
     $(function() {
-	<!--$.datepicker.setDefaults($.datepicker.regional['fi']);-->
+	<!--$.datepicker.setDefaults($.datepicker.regional['en-GB']);-->
     $( "#from" ).datepicker({
-      defaultDate: "+1w",
+      minDate: 0,
+      maxDate: +7,
       changeMonth: false,
-      numberOfMonths: 2,
+      numberOfMonths: 1,
       onClose: function( selectedDate ) {
         $( "#to" ).datepicker( "option", "minDate", selectedDate );
-      }
-    });
-    $( "#to" ).datepicker({
-      defaultDate: "+1w",
-	  regional: "fi",
-      changeMonth: false,
-      numberOfMonths: 2,
-      onClose: function( selectedDate ) {
-        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
       }
     });
   });  </script>
@@ -104,15 +96,6 @@ td.calendar-day, td.calendar-day-np {
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
-<!--
-				<tr>
-					<td>Phone:</td>
-					<td>
-			<input maxlength="20" name="phone" required="" type="text" /></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
--->
 				<tr>
 					<td>Reservation date:</td>
 					<td>
