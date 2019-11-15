@@ -59,7 +59,7 @@ td.calendar-day, td.calendar-day-np {
 }
 </style>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Booking calendar - DEMO</title>
+<title>Worksop Squash Club</title>
 <link href="jquery-ui.css" rel="stylesheet">
 <script src="jquery-1.10.2.js"></script>
 <script src="jquery-ui.js"></script>
@@ -81,7 +81,7 @@ td.calendar-day, td.calendar-day-np {
 
 <body>
 
-<h1>Booking calendar - DEMO</h1>
+<h1>Worksop Squash Club</h1>
 <table border="1" cellpadding="5" width="800">
 	<tr>
 		<td valign="top">
@@ -107,10 +107,11 @@ td.calendar-day, td.calendar-day-np {
                     <select name="start_time">
                         
                         <?php
+                        include 'config.php';
                         date_default_timezone_set('GMT');
-                        $startTime = new DateTime('9:00');
-                        $endTime = new DateTime('22:00');
-                        $interval = DateInterval::createFromDateString('40 min');
+                        $startTime = new DateTime($bookingSlotStartTime);
+                        $endTime = new DateTime($bookingSlotEndTime);
+                        $interval = DateInterval::createFromDateString($bookingSlotDuration);
                         $times    = new DatePeriod($startTime, $interval, $endTime);
                         
                         foreach ($times as $time) { ?>

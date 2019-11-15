@@ -59,7 +59,7 @@ td.calendar-day, td.calendar-day-np {
 }
 </style>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Booking calendar - DEMO</title>
+<title>Worksop Squash Club</title>
 <link href="jquery-ui.css" rel="stylesheet">
 <script src="jquery-1.10.2.js"></script>
 <script src="jquery-ui.js"></script>
@@ -89,9 +89,8 @@ td.calendar-day, td.calendar-day-np {
     
 <body>
 
+<h1>Worksop Squash Club</h1>
 <a href="booking.php"><p>Make a booking</p></a>
-
-<h1>Booking calendar - DEMO</h1>
 <?php
 /* draws a calendar */
 function draw_calendar($month,$year){

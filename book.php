@@ -24,10 +24,8 @@ if (!$conn) {
 }
 
 $day = intval(strtotime(htmlspecialchars($_POST["day"])));
-//$start_time = (60*60*intval(htmlspecialchars($_POST["start_time"])));
 $start_time = htmlspecialchars($_POST["start_time"]);
 $name = htmlspecialchars($_POST["name"]);
-//$phone = htmlspecialchars($_POST["phone"]);
 $court = htmlspecialchars($_POST["court"]);
 
 //$start_epoch = $start_day + $start_time;
