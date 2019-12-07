@@ -1,9 +1,11 @@
 <?php
-	$servername = "localhost";
-	$username = "clubadmin";
-	$password = "aZKAoXzGFVDlPGxz";
-	$dbname = "database";
-	$tablename = "bookingcalendar";
+	$servername = 'localhost';
+	$username = 'clubadmin';
+	$password = 'aZKAoXzGFVDlPGxz';
+	$dbname = 'database';
+	$tablename = 'bookingcalendar';
+
+    $pythonScriptName = './test.py';
 
 	// translate these
 	$months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');

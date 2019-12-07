@@ -63,10 +63,10 @@ td.calendar-day, td.calendar-day-np {
 <link href="jquery-ui.css" rel="stylesheet">
 <script src="jquery-1.10.2.js"></script>
 <script src="jquery-ui.js"></script>
-<script src="lang/datepicker-en-GB.js"></script>
+<!--<script src="lang/datepicker-en-GB.js"></script>-->
 <script>
     $(function() {
-	<!--$.datepicker.setDefaults($.datepicker.regional['en-GB']);-->
+//	$.datepicker.setDefaults($.datepicker.regional['en-GB']);
     $( "#from" ).datepicker({
       minDate: 0,
       maxDate: +7,
@@ -81,6 +81,14 @@ td.calendar-day, td.calendar-day-np {
 
 <body>
 
+<?php 
+    include 'config.php';
+    
+    // get the user id from python script
+    $command = escapeshellcmd($pythonScriptName);
+    $userName = shell_exec($command);
+?>
+
 <h1>Worksop Squash Club</h1>
 <table border="1" cellpadding="5" width="800">
 	<tr>
@@ -92,14 +100,13 @@ td.calendar-day, td.calendar-day-np {
             <table style="width: 70%">
 				<tr>
 					<td>Name:</td>
-					<td> <input maxlength="50" name="name" required="" type="text" /></td>
+					<td> <input maxlength="50" name="name" required="" readonly="true" type="text" value="<?php echo $userName ?>"/></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>Reservation date:</td>
-					<td>
-			<input id="from" name="day" required="" type="text" /></td>
+					<td><input id="from" name="day" required="" type="text" /></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
