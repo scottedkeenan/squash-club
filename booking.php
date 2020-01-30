@@ -69,9 +69,9 @@ td.calendar-day, td.calendar-day-np {
 //	$.datepicker.setDefaults($.datepicker.regional['en-GB']);
     $( "#from" ).datepicker({
       minDate: 0,
-      maxDate: +7,
+      maxDate: +8,
       changeMonth: false,
-      numberOfMonths: 1,
+      numberOfMonths: 2,
       onClose: function( selectedDate ) {
         $( "#to" ).datepicker( "option", "minDate", selectedDate );
       }
