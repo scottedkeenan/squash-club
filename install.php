@@ -13,11 +13,9 @@
 		id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		name VARCHAR(50) NOT NULL,
 		phone VARCHAR(20) NOT NULL,
-		item VARCHAR(20) NOT NULL,
-		start_day INT(11),
-		end_day INT(11),
-		start_time INT(11),
-		end_time INT(11),
+		court VARCHAR(20) NOT NULL,
+		day INT(11),
+		start_time VARCHAR(11),
 		canceled INT(1)
 	)";
 	
