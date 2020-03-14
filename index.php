@@ -90,7 +90,16 @@ td.calendar-day, td.calendar-day-np {
 <body>
 
 <h1>Worksop Squash Club</h1>
-<a href="booking.php"><p>Make a booking</p></a>
+<!--<a href="booking.php"><p>Make a booking</p></a>-->
+<form action="scan.php">
+    <input type="submit" class=disable value="Make Booking" />
+</form>
+<script>
+    $('.disable').click(function(){
+        console.log("I'm here!");
+        $(this).prop('disabled', true);
+    });
+</script>
 <?php
 /* draws a calendar */
 function draw_calendar($month,$year){
