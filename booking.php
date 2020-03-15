@@ -82,11 +82,7 @@ td.calendar-day, td.calendar-day-np {
 <body>
 
 <?php 
-    include 'config.php';
-    
-    // get the user id from python script
-    $command = escapeshellcmd($pythonScriptName);
-    $userName = shell_exec($command);
+    $username = $_GET["username"];
 ?>
 
 <h1>Worksop Squash Club</h1>
@@ -100,7 +96,7 @@ td.calendar-day, td.calendar-day-np {
             <table style="width: 70%">
 				<tr>
 					<td>Name:</td>
-					<td> <input maxlength="50" name="name" required="" readonly="true" type="text" value="<?php echo $userName ?>"/></td>
+					<td> <input maxlength="50" name="name" required="" readonly="true" type="text" value="<?php echo $username ?>"/></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
