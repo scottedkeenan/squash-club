@@ -149,11 +149,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <span class="close">&times;</span>
     <p id="modal_message">Please scan your fob now</p>
     <form id="proceed_form" action="booking.php">
-        <input id="proceed_to_book" hidden="" type="submit" class=disable value="Make Booking" />
+        <input id="proceed_to_book" hidden="" type="submit" value="Make Booking">
         <input id="username" name="username" type="hidden" value="none">
-    </form>
-    
-      
+    </form>     
   </div>
 </div>
 
@@ -178,7 +176,7 @@ btn.onclick = function() {
    type: "POST",
    url: "scan.php",
    success: function (msg) {
-       $('#username').val(msg); //.replace(" ", "_"))
+       $('#username').val(msg);
        $('#modal_message').text("Welcome, " + msg);
        $('#proceed_to_book').show();
    }
@@ -192,6 +190,7 @@ span.onclick = function() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
+//todo: also reset the modal
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
@@ -202,13 +201,6 @@ window.onclick = function(event) {
     
 <!-- ================================================ -->
     
-
-<script>
-    $('.disable').click(function(){
-        console.log("I'm here!");
-        $(this).prop('disabled', true);
-    });
-</script>
 <?php
 /* draws a calendar */
 function draw_calendar($month,$year){
