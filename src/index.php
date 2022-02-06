@@ -135,58 +135,107 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <body>
 
 <h1>Worksop Squash Club</h1>
-    
-<!-- NEW MODAL ================================================ -->
-    
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Make Booking</button>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
+<!-- Trigger/Open The Modal -->
+<button id="book-button">Make Booking</button>
+<button id="cancel-button">Cancel Booking</button>
+
+<!-- The Book Modal -->
+<div id="bookModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <p id="modal_message">Please scan your fob now</p>
-    <form id="proceed_form" action="booking.php">
+    <span id="book-close" class="close">&times;</span>
+    <p id="book-message">Please scan your fob now</p>
+    <form id="booking_proceed_form" action="booking.php">
         <input id="proceed_to_book" hidden="" type="submit" value="Make Booking">
-        <input id="username" name="username" type="hidden" value="none">
+        <input id="book-username" name="username" type="hidden" value="none">
     </form>     
   </div>
 </div>
 
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+var bookModal = document.getElementById("bookModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+var bookButton = document.getElementById("book-button");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-    
-// Get the <p> containing the message to the user
-var userMessage = document.getElementById("modal_message")
+// Get the span element that closes the modal
+var bookCloseSpan = document.getElementById("book-close");
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
+bookButton.onclick = function() {
+  bookModal.style.display = "block";
     
   jQuery.ajax({
-   type: "POST",
-   url: "scan.php",
-   success: function (msg) {
-       $('#username').val(msg);
-       $('#modal_message').text("Welcome, " + msg);
-       $('#proceed_to_book').show();
-   }
+       type: "POST",
+       url: "scan.php",
+       success: function (msg) {
+           $('#book-username').val(msg.trim());
+           $('#book-message').text("Welcome, " + msg);
+           $('#proceed_to_book').show();
+       }
 });
       
 }
 
+// When the user clicks anywhere outside of the modal, close it
+
+</script>
+
+<!-- The Cancel Modal -->
+<div id="cancelModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span id="cancel-close" class="close">&times;</span>
+        <p id="cancel-message">Please scan your fob now</p>
+        <form id="cancel_proceed_form" action="cancellation.php">
+            <input id="cancel-username" name="username" type="hidden" value="none">
+            <input id="proceed_to_cancel" hidden="" type="submit" value="Make a Cancellation">
+        </form>
+    </div>
+</div>
+
+<script>
+// Get the modal
+var cancelModal = document.getElementById("cancelModal");
+
+// Get the button that opens the modal
+var cancelButton = document.getElementById("cancel-button");
+
+// Get the span element that closes the modal
+var cancelCloseSpan = document.getElementById("cancel-close");
+
+// When the user clicks the button, open the modal
+cancelButton.onclick = function() {
+    cancelModal.style.display = "block";
+
+    jQuery.ajax({
+        type: "POST",
+        url: "scan.php",
+        success: function (msg) {
+            $('#cancel-username').val(msg.trim());
+            $('#cancel-message').text("Welcome, " + msg.trim());
+            $('#proceed_to_cancel').show();
+        }
+    });
+
+}
+
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
+bookCloseSpan.onclick = function() {
+    bookModal.style.display = "none";
+    $('#modal_message').text("Please scan your fob now");
+    $('#bookings-to-cancel').hide();
+    $('#proceed_to_cancel').hide();
+    $('#username').val(null);
+}
+
+// When the user clicks on <span> (x), close the modal
+cancelCloseSpan.onclick = function() {
+    cancelModal.style.display = "none";
     $('#modal_message').text("Please scan your fob now");
     $('#proceed_to_book').hide();
     $('#username').val(null);
@@ -195,16 +244,23 @@ span.onclick = function() {
 // When the user clicks anywhere outside of the modal, close it
 //todo: also reset the modal
 window.onclick = function(event) {
-  if (event.target == modal) {
-      modal.style.display = "none";
-      $('#modal_message').text("Please scan your fob now");
-      $('#proceed_to_book').hide();
-      $('#username').val(null);    
-  }
+    if (event.target == cancelModal) {
+        cancelModal.style.display = "none";
+        $('#modal_message').text("Please scan your fob now");
+        $('#bookings-to-cancel').hide();
+        $('#proceed_to_cancel').hide();
+        $('#username').val(null);
+    }
+    if (event.target == bookModal) {
+        bookModal.style.display = "none";
+        $('#modal_message').text("Please scan your fob now");
+        $('#proceed_to_book').hide();
+        $('#username').val(null);
+    }
 }
-</script> 
-    
-    
+</script>
+
+
 <!-- ================================================ -->
     
 <?php
