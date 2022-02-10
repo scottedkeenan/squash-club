@@ -173,11 +173,19 @@ bookButton.onclick = function() {
       url: "scan.php",
       async: false,
       success: function (msg) {
-          console.log(msg.trim() + ' scanned!');
-          $('#book-username').val(msg.trim());
-           $('#book-modal-message').text("Welcome, " + msg);
-           $('#proceed_to_book').show();
-       }
+          var trimmedMessage = msg.trim()
+          console.log(trimmedMessage + ' scanned!');
+          if (trimmedMessage !== 'TIMEOUT') {
+              $('#book-username').val(trimmedMessage);
+              $('#book-modal-message').text("Welcome, " + trimmedMessage);
+              $('#proceed_to_book').show();
+          } else {
+              bookModal.style.display = "none";
+              $('#book-modal-message').text("Please scan your fob now");
+              $('#proceed_to_cancel').hide();
+              $('#username').val(null);
+          }
+      }
 });
 
 }
@@ -215,10 +223,20 @@ cancelButton.onclick = function() {
     jQuery.ajax({
         type: "POST",
         url: "scan.php",
+        async: false,
         success: function (msg) {
-            $('#cancel-username').val(msg.trim());
-            $('#cancel-modal-message').text("Welcome, " + msg.trim());
-            $('#proceed_to_cancel').show();
+            var trimmedMessage = msg.trim()
+            console.log(trimmedMessage + ' scanned!');
+            if (trimmedMessage !== 'TIMEOUT') {
+                $('#cancel-username').val(trimmedMessage);
+                $('#cancel-modal-message').text("Welcome, " + trimmedMessage);
+                $('#proceed_to_cancel').show();
+            } else {
+                cancelModal.style.display = "none";
+                $('#cancel-modal-message').text("Please scan your fob now");
+                $('#proceed_to_cancel').hide();
+                $('#username').val(null);
+            }
         }
     });
 
@@ -228,16 +246,15 @@ cancelButton.onclick = function() {
 bookCloseSpan.onclick = function() {
     bookModal.style.display = "none";
     $('#book-modal-message').text("Please scan your fob now");
-    $('#bookings-to-cancel').hide();
-    $('#proceed_to_cancel').hide();
     $('#username').val(null);
+    $('#proceed_to_book').hide();
 }
 
 // When the user clicks on <span> (x), close the modal
 cancelCloseSpan.onclick = function() {
     cancelModal.style.display = "none";
     $('#cancel-modal-message').text("Please scan your fob now");
-    $('#proceed_to_book').hide();
+    $('#proceed_to_cancel').hide();
     $('#username').val(null);
 }
 
@@ -246,14 +263,13 @@ cancelCloseSpan.onclick = function() {
 window.onclick = function(event) {
     if (event.target == cancelModal) {
         cancelModal.style.display = "none";
-        $('#book-modal-message').text("Please scan your fob now");
-        $('#bookings-to-cancel').hide();
+        $('#cancel-modal-message').text("Please scan your fob now");
         $('#proceed_to_cancel').hide();
         $('#username').val(null);
     }
     if (event.target == bookModal) {
         bookModal.style.display = "none";
-        $('#cancel-modal-message').text("Please scan your fob now");
+        $('#book-modal-message').text("Please scan your fob now");
         $('#proceed_to_book').hide();
         $('#username').val(null);
     }
