@@ -57,9 +57,9 @@ td.calendar-day, td.calendar-day-np {
 	border-bottom: 1px solid #999;
 	border-right: 1px solid #999;
 }
-    
 
-    
+
+
 
 body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -100,8 +100,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
   color: #000;
   text-decoration: none;
   cursor: pointer;
-} 
-    
+}
+
 </style>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <title>Worksop Squash Club</title>
@@ -131,7 +131,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     });
   });  </script>
 </head>
-    
+
 <body>
 
 <h1>Worksop Squash Club</h1>
@@ -146,11 +146,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- Modal content -->
   <div class="modal-content">
     <span id="book-close" class="close">&times;</span>
-    <p id="book-message">Please scan your fob now</p>
+    <p id="book-modal-message">Please scan your fob now</p>
     <form id="booking_proceed_form" action="booking.php">
         <input id="proceed_to_book" hidden="" type="submit" value="Make Booking">
         <input id="book-username" name="username" type="hidden" value="none">
-    </form>     
+    </form>
   </div>
 </div>
 
@@ -164,23 +164,23 @@ var bookButton = document.getElementById("book-button");
 // Get the span element that closes the modal
 var bookCloseSpan = document.getElementById("book-close");
 
-// When the user clicks the button, open the modal 
+// When the user clicks the button, open the modal
 bookButton.onclick = function() {
   bookModal.style.display = "block";
-    
+
   jQuery.ajax({
-       type: "POST",
-       url: "scan.php",
-       success: function (msg) {
-           $('#book-username').val(msg.trim());
-           $('#book-message').text("Welcome, " + msg);
+      type: "POST",
+      url: "scan.php",
+      async: false,
+      success: function (msg) {
+          console.log(msg.trim() + ' scanned!');
+          $('#book-username').val(msg.trim());
+           $('#book-modal-message').text("Welcome, " + msg);
            $('#proceed_to_book').show();
        }
 });
-      
-}
 
-// When the user clicks anywhere outside of the modal, close it
+}
 
 </script>
 
@@ -190,7 +190,7 @@ bookButton.onclick = function() {
     <!-- Modal content -->
     <div class="modal-content">
         <span id="cancel-close" class="close">&times;</span>
-        <p id="cancel-message">Please scan your fob now</p>
+        <p id="cancel-modal-message">Please scan your fob now</p>
         <form id="cancel_proceed_form" action="cancellation.php">
             <input id="cancel-username" name="username" type="hidden" value="none">
             <input id="proceed_to_cancel" hidden="" type="submit" value="Make a Cancellation">
@@ -217,7 +217,7 @@ cancelButton.onclick = function() {
         url: "scan.php",
         success: function (msg) {
             $('#cancel-username').val(msg.trim());
-            $('#cancel-message').text("Welcome, " + msg.trim());
+            $('#cancel-modal-message').text("Welcome, " + msg.trim());
             $('#proceed_to_cancel').show();
         }
     });
@@ -227,7 +227,7 @@ cancelButton.onclick = function() {
 // When the user clicks on <span> (x), close the modal
 bookCloseSpan.onclick = function() {
     bookModal.style.display = "none";
-    $('#modal_message').text("Please scan your fob now");
+    $('#book-modal-message').text("Please scan your fob now");
     $('#bookings-to-cancel').hide();
     $('#proceed_to_cancel').hide();
     $('#username').val(null);
@@ -236,7 +236,7 @@ bookCloseSpan.onclick = function() {
 // When the user clicks on <span> (x), close the modal
 cancelCloseSpan.onclick = function() {
     cancelModal.style.display = "none";
-    $('#modal_message').text("Please scan your fob now");
+    $('#cancel-modal-message').text("Please scan your fob now");
     $('#proceed_to_book').hide();
     $('#username').val(null);
 }
@@ -246,14 +246,14 @@ cancelCloseSpan.onclick = function() {
 window.onclick = function(event) {
     if (event.target == cancelModal) {
         cancelModal.style.display = "none";
-        $('#modal_message').text("Please scan your fob now");
+        $('#book-modal-message').text("Please scan your fob now");
         $('#bookings-to-cancel').hide();
         $('#proceed_to_cancel').hide();
         $('#username').val(null);
     }
     if (event.target == bookModal) {
         bookModal.style.display = "none";
-        $('#modal_message').text("Please scan your fob now");
+        $('#cancel-modal-message').text("Please scan your fob now");
         $('#proceed_to_book').hide();
         $('#username').val(null);
     }
@@ -262,7 +262,7 @@ window.onclick = function(event) {
 
 
 <!-- ================================================ -->
-    
+
 <?php
 /* draws a calendar */
 function draw_calendar($month,$year){
@@ -308,11 +308,11 @@ function draw_calendar($month,$year){
 			/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
 			$calendar.= str_repeat('<p> </p>',2);
 			$current_epoch = mktime(0,0,0,$month,$list_day,$year);
-			
-			$sql = "SELECT * FROM $tablename WHERE $current_epoch BETWEEN day AND day";  
-						
+
+			$sql = "SELECT * FROM $tablename WHERE $current_epoch BETWEEN day AND day";
+
 			$result = mysqli_query($conn, $sql);
-    		
+
     		if (mysqli_num_rows($result) > 0) {
     			// output data of each row
     			while($row = mysqli_fetch_assoc($result)) {
@@ -330,7 +330,7 @@ function draw_calendar($month,$year){
 			} else {
     			$calendar .= "No bookings";
 			}
-			
+
 		$calendar.= '</td>';
 		if($running_day == 6):
 			$calendar.= '</tr>';
@@ -355,9 +355,9 @@ function draw_calendar($month,$year){
 
 	/* end the table */
 	$calendar.= '</table>';
-	
+
 	mysqli_close($conn);
-	
+
 	/* all done, return result */
 	return $calendar;
 }
