@@ -171,7 +171,7 @@ bookButton.onclick = function() {
   jQuery.ajax({
       type: "POST",
       url: "scan.php",
-      async: false,
+      // async: false,
       success: function (msg) {
           var trimmedMessage = msg.trim()
           console.log(trimmedMessage + ' scanned!');
@@ -223,7 +223,7 @@ cancelButton.onclick = function() {
     jQuery.ajax({
         type: "POST",
         url: "scan.php",
-        async: false,
+        // async: false,
         success: function (msg) {
             var trimmedMessage = msg.trim()
             console.log(trimmedMessage + ' scanned!');
