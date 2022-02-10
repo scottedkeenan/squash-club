@@ -101,41 +101,28 @@ td.calendar-day, td.calendar-day-np {
 		<td valign="top">
 		<form action="cancel.php" method="post">
 			<h3>Cancel Booking</h3>
-            <table style="width: 70%">
-				<tr>
-					<td>Name:</td>
-					<td> <input maxlength="50" name="name" required="" readonly="true" type="text" value="<?php echo $memberName?>"/></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-<!--					<td>Reservation date:</td>-->
-					<td>
-                        <select name="booking">
-                        <?php
-                        date_default_timezone_set('GMT');
-                        $d = strtotime('today midnight');
-                        print_r('|' . $d . '|');
-                        $sql = "SELECT * FROM $tablename WHERE `name`='$memberName' AND `day` >= $d";
-                        $result = mysqli_query($conn, $sql);
-                        if (mysqli_num_rows($result) > 0) {
-                            // output data of each row
-                            while($row = mysqli_fetch_assoc($result)) {
-                                echo sprintf(
-                                        '<option value="%s">%s %s %s</option>',
-                                        $row['id'],
-                                        $row['court'],
-                                        date('D j M',$row['day']),
-                                        $row['start_time']
-                                );
-                            }
-                        }
-                        ?>
-                        </select>
-                    </td>
-				</tr>
-			</table>
-			<p>
+            <p><?php echo sprintf('Name: %s', $memberName)?></p>
+            <select name="booking">
+            <?php
+            date_default_timezone_set('GMT');
+            $d = strtotime('today midnight');
+            print_r('|' . $d . '|');
+            $sql = "SELECT * FROM $tablename WHERE `name`='$memberName' AND `day` >= $d";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                // output data of each row
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo sprintf(
+                            '<option value="%s">%s %s %s</option>',
+                            $row['id'],
+                            $row['court'],
+                            date('D j M',$row['day']),
+                            $row['start_time']
+                    );
+                }
+            }
+            ?>
+            </select>
 			<input name="cancel" type="submit" value="Cancel" />
 		</form>
 		</td>
